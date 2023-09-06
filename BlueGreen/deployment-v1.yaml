@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-versao-v1
+spec:
+  replicas: 10
+  selector:
+    matchLabels:
+      app: api-versao
+      version: v1
+  template:
+    metadata:
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8080"
+      labels:
+        app: api-versao
+        version: v1
+    spec:
+      containers:
+        - name: api-versao
+          image: kubedevio/api-versao:v1
+          resources: {}
+          ports:
+            - containerPort: 8080
